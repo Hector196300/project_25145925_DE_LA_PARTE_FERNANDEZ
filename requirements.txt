@@ -1,0 +1,18 @@
+# COMP0248 CW1 — runtime dependencies
+# Install with:  python -m pip install -r requirements.txt
+
+torch>=2.0.0
+numpy>=1.24.0
+opencv-python>=4.8.0
+matplotlib>=3.7.0
+
+# Notes
+# -----
+# torchvision is deliberately NOT required. No pretrained backbone, no
+# torchvision.models.detection component, and no high-level detection or
+# segmentation framework is used anywhere in the submitted model, training
+# loop or evaluation code.
+#
+# The annotation pipeline (SAM3, Label Studio) is a separate,
+# offline step that produces ground-truth masks only. It is never invoked
+# during training or inference, so its dependencies are not listed here.
