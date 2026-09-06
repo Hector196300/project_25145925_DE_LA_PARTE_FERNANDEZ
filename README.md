@@ -22,9 +22,20 @@ python -m pip install -r requirements.txt
 Python 3.10+. A CUDA GPU is strongly recommended; every script falls back to CPU
 with `--cpu`.
 
-Note that `torchvision` is **not** a dependency and must not be installed to run
-this code. No pretrained backbone and no high-level detection or segmentation
-framework is used anywhere in the model, training loop or evaluation scripts.
+`torchvision` is not listed as a dependency because nothing in `src/` imports
+it; it is harmless if already present, since it ships alongside CUDA PyTorch. No
+pretrained backbone and no high-level detection or segmentation framework is
+used anywhere in the model, training loop or evaluation scripts.
+
+**What is written here, and what comes from PyTorch.** The architecture
+(`ConvBlock`, `UpBlock`, `HandGestureNet`) subclasses `torch.nn.Module`;
+`GestureDataset` subclasses `torch.utils.data.Dataset` and implements its own
+indexing, contributor-level splitting and augmentation; the training loop, the
+loss composition and every metric are written out in full. Used as provided:
+`nn.Conv2d`, `nn.BatchNorm2d`, `nn.ConvTranspose2d`, `nn.BCEWithLogitsLoss`,
+`nn.CrossEntropyLoss`, `torch.optim.AdamW` and `CosineAnnealingLR`. Implemented
+directly because they are not standard `nn` losses or metrics: soft Dice, IoU,
+GIoU, the confusion matrix and macro-averaged F1.
 
 ---
 
@@ -66,8 +77,9 @@ and gesture folder names are matched case-insensitively.
 
 **Splitting is by contributor, not by image.** Frames inside a 5 s / 3 fps clip
 are near-duplicates, so an image-level split would leak near-copies into
-validation. `--val-fraction 0.2` with `--seed 0` yields 24 training folders and
-6 validation folders (599 annotated frames).
+validation. `--val-fraction 0.2` with `--seed 0` yields 23 training folders
+(2300 annotated frames) and 6 validation folders (599 annotated frames) out of
+the 29 usable.
 
 Sanity-check the layout before training:
 

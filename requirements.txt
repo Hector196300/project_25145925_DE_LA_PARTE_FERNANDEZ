@@ -8,12 +8,21 @@ matplotlib>=3.7.0
 
 # Notes
 # -----
-# torchvision is deliberately NOT required and should not be installed. It is
-# not imported by any of model.py, dataloader.py, train.py, evaluate.py,
-# utils.py or visualise.py. No pretrained backbone, no
+# torchvision is not listed because nothing in src/ imports it. It is harmless
+# if present (it ships alongside CUDA PyTorch), but no pretrained backbone, no
 # torchvision.models.detection component, and no high-level detection or
 # segmentation framework is used anywhere in the submitted model, training
 # loop or evaluation code.
+#
+# What is used from PyTorch, and what is written here:
+#   built-in, used as provided   nn.Conv2d, nn.BatchNorm2d, nn.ConvTranspose2d,
+#                                nn.BCEWithLogitsLoss, nn.CrossEntropyLoss,
+#                                torch.optim.AdamW, CosineAnnealingLR
+#   written for this submission  the architecture (nn.Module subclasses), the
+#                                Dataset and its splitting and augmentation,
+#                                the training loop, the loss composition, and
+#                                Dice, IoU, GIoU, the confusion matrix and
+#                                macro-F1
 #
 # The annotation pipeline (SAM3, Label Studio) is a separate,
 # offline step that produces ground-truth masks only. It is never invoked
