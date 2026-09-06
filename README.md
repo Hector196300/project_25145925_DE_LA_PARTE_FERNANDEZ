@@ -16,11 +16,15 @@ framework, no smartphone images in training.
 ## 1. Requirements
 
 ```bash
-python -m pip install torch torchvision numpy opencv-python matplotlib
+python -m pip install -r requirements.txt
 ```
 
 Python 3.10+. A CUDA GPU is strongly recommended; every script falls back to CPU
 with `--cpu`.
+
+Note that `torchvision` is **not** a dependency and must not be installed to run
+this code. No pretrained backbone and no high-level detection or segmentation
+framework is used anywhere in the model, training loop or evaluation scripts.
 
 ---
 
@@ -272,10 +276,13 @@ E1/E2 use `baseline_best.pt`; E3 uses `domain_aug_best.pt`.
 files next to it (copy them out of `results/figs/`):
 
 ```
-baseline_curves.png  domain_aug_curves.png
+baseline_curves.png
 exp2_cm.png          exp3_cm.png
 exp2_overlays.png    exp3_overlays.png
 ```
 
-Compile with pdfLaTeX. Export the PDF as `coursework1LSA_studentname.pdf` for
-submission.
+Compile with pdfLaTeX. Export the PDF as
+`coursework1LSA_Hector_de_la_Parte_Fernandez.pdf` for submission.
+
+`domain_aug_curves.png`, `exp1_cm.png` and `comparison.png` are also produced by
+Section 4 but are not used in the final six-page report.

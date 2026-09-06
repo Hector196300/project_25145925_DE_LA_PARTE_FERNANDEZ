@@ -8,7 +8,9 @@ matplotlib>=3.7.0
 
 # Notes
 # -----
-# torchvision is deliberately NOT required. No pretrained backbone, no
+# torchvision is deliberately NOT required and should not be installed. It is
+# not imported by any of model.py, dataloader.py, train.py, evaluate.py,
+# utils.py or visualise.py. No pretrained backbone, no
 # torchvision.models.detection component, and no high-level detection or
 # segmentation framework is used anywhere in the submitted model, training
 # loop or evaluation code.
